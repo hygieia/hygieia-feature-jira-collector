@@ -7,7 +7,7 @@
   <packaging>jar</packaging>
   <artifactId>jira-feature-collector</artifactId>
   <url>https://github.com/Hygieia/${repository.name}</url>
-  <version>3.1.0-SNAPSHOT</version>
+  <version>3.1.1-SNAPSHOT</version>
 
   <parent>
     <groupId>com.capitalone.dashboard</groupId>
@@ -183,7 +183,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>14.0</version>
+      <version>18.0</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>

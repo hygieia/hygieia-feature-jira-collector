@@ -1,5 +1,6 @@
 package com.capitalone.dashboard.collector;
 
+import com.capitalone.dashboard.client.RestClient;
 import com.capitalone.dashboard.misc.HygieiaException;
 import com.capitalone.dashboard.model.Epic;
 import com.capitalone.dashboard.model.Feature;
@@ -77,14 +78,14 @@ public class DefaultJiraClient implements JiraClient {
     private static final String EPIC_ISSUE_TYPE = "Epic";
     private static final int JIRA_BOARDS_PAGING = 50;
     private final FeatureSettings featureSettings;
-    private final RestOperations restOperations;
+    private final RestClient restClient;
     private String issueFields;
     private static JSONParser parser = new JSONParser();
 
     @Autowired
-    public DefaultJiraClient(FeatureSettings featureSettings, Supplier<RestOperations> restOperationsSupplier) {
+    public DefaultJiraClient(FeatureSettings featureSettings, RestClient restClient) {
         this.featureSettings = featureSettings;
-        this.restOperations = restOperationsSupplier.get();
+        this.restClient = restClient;
         issueFields = STATIC_ISSUE_FIELDS + ','
                 + featureSettings.getJiraTeamFieldName() + ','
                 + featureSettings.getJiraSprintDataFieldName() + ','
@@ -821,14 +822,14 @@ public class DefaultJiraClient implements JiraClient {
     private ResponseEntity<String> makeRestCall(String url) throws HygieiaException {
         String jiraAccess = featureSettings.getJiraCredentials();
         if (StringUtils.isEmpty(jiraAccess)) {
-            return restOperations.exchange(url, HttpMethod.GET, null, String.class);
+            return restClient.makeRestCallGet(url);
         } else {
             String jiraAccessBase64 = new String(Base64.decodeBase64(jiraAccess));
             String[] parts = jiraAccessBase64.split(":");
             if (parts.length != 2) {
                 throw new HygieiaException("Invalid Jira credentials", HygieiaException.INVALID_CONFIGURATION);
             }
-            return restOperations.exchange(url, HttpMethod.GET, new HttpEntity<>(createHeaders(parts[0], parts[1])), String.class);
+            return restClient.makeRestCallGet(url, createHeaders(parts[0], parts[1]));
         }
     }
 

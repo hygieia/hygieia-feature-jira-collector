@@ -51,7 +51,7 @@
     <repository.name>hygieia-feature-jira-collector</repository.name>
     <apache.rat.plugin.version>0.13</apache.rat.plugin.version>
     <bc.version>3.0.1</bc.version>
-    <com.capitalone.dashboard.core.version>3.1.7</com.capitalone.dashboard.core.version>
+    <com.capitalone.dashboard.core.version>3.1.9</com.capitalone.dashboard.core.version>
     <commons.io.version>2.4</commons.io.version>
     <commons.lang.version>3.8.1</commons.lang.version>
     <coveralls.maven.plugin.version>4.3.0</coveralls.maven.plugin.version>

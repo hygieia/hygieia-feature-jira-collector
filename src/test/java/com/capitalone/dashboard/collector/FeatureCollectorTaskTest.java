@@ -1,5 +1,6 @@
 package com.capitalone.dashboard.collector;
 
+import com.capitalone.dashboard.client.RestClient;
 import com.capitalone.dashboard.common.TestUtils;
 import com.capitalone.dashboard.config.FongoConfig;
 import com.capitalone.dashboard.config.TestConfig;
@@ -94,7 +95,8 @@ public class FeatureCollectorTaskTest {
         TestUtils.loadScope(projectRepository);
         TestUtils.loadFeature(featureRepository);
         when(restOperationsSupplier.get()).thenReturn(rest);
-        defaultJiraClient = new DefaultJiraClient(featureSettings,restOperationsSupplier);
+        RestClient restClient = new RestClient(restOperationsSupplier);
+        defaultJiraClient = new DefaultJiraClient(featureSettings,restClient);
         featureSettings.setJiraBoardAsTeam(true);
         featureSettings.setCollectorItemOnlyUpdate(false);
         featureCollectorTask = new FeatureCollectorTask(null,featureRepository,teamRepository,projectRepository,featureCollectorRepository,featureSettings,defaultJiraClient, featureBoardRepository);

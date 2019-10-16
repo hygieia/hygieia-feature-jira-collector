@@ -14,7 +14,7 @@ import org.springframework.scheduling.TaskScheduler;
  */
 @Order(1)
 @Configuration
-@ComponentScan(basePackages ={ "com.capitalone.dashboard.model","com.capitalone.dashboard.collector"}, includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value=com.capitalone.dashboard.collector.FeatureSettings.class))
+@ComponentScan(basePackages ={ "com.capitalone.dashboard.model","com.capitalone.dashboard.collector","com.capitalone.dashboard.client"}, includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value=com.capitalone.dashboard.collector.FeatureSettings.class))
 public class TestConfig {
 
     @Bean

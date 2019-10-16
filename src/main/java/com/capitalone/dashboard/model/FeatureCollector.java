@@ -13,59 +13,60 @@ import java.util.Map;
  * @author KFK884
  */
 public class FeatureCollector extends Collector {
-	private long lastRefreshTime;
+  private long lastRefreshTime;
 
-	public long getLastRefreshTime() {
-		return lastRefreshTime;
-	}
+  public long getLastRefreshTime() {
+    return lastRefreshTime;
+  }
 
-	public void setLastRefreshTime(long lastRefreshTime) {
-		this.lastRefreshTime = lastRefreshTime;
-	}
+  public void setLastRefreshTime(long lastRefreshTime) {
+    this.lastRefreshTime = lastRefreshTime;
+  }
 
-	public JiraMode getMode() {
-		return (JiraMode) MapUtils.getObject(this.getProperties(),"mode", JiraMode.Board);
-	}
-	/**
-	 * Creates a static prototype of the Feature Collector, which includes any
-	 * specific settings or configuration required for the use of this
-	 * collector, including settings for connecting to any source systems.
-	 *
-	 * @return A configured Feature Collector prototype
-	 */
-	public static FeatureCollector prototype(JiraMode mode) {
-		FeatureCollector protoType = new FeatureCollector();
+  public JiraMode getMode() {
+    return (JiraMode) MapUtils.getObject(this.getProperties(), "mode", JiraMode.Board);
+  }
 
-		protoType.setName(FeatureCollectorConstants.JIRA);
-		protoType.setOnline(true);
-        protoType.setEnabled(true);
-		protoType.setCollectorType(CollectorType.AgileTool);
+  /**
+   * Creates a static prototype of the Feature Collector, which includes any
+   * specific settings or configuration required for the use of this
+   * collector, including settings for connecting to any source systems.
+   *
+   * @return A configured Feature Collector prototype
+   */
+  public static FeatureCollector prototype(JiraMode mode) {
+    FeatureCollector protoType = new FeatureCollector();
 
-		Map<String, Object> allOptions = new HashMap<>();
-		allOptions.put(FeatureBoard.TOOL_TYPE, "");
-		allOptions.put(FeatureBoard.PROJECT_NAME, "");
-		allOptions.put(FeatureBoard.PROJECT_ID, "");
-		allOptions.put(FeatureBoard.TEAM_NAME, "");
-		allOptions.put(FeatureBoard.TEAM_ID, "");
-		allOptions.put(FeatureBoard.ESTIMATE_METRIC_TYPE, "");
-		allOptions.put(FeatureBoard.SPRINT_TYPE, "");
-		allOptions.put(FeatureBoard.LIST_TYPE, "");
-		allOptions.put(FeatureBoard.SHOW_STATUS, "");
-		protoType.setAllFields(allOptions);
+    protoType.setName(FeatureCollectorConstants.JIRA);
+    protoType.setOnline(true);
+    protoType.setEnabled(true);
+    protoType.setCollectorType(CollectorType.AgileTool);
 
-		Map<String, Object> uniqueOptions = new HashMap<>();
-		uniqueOptions.put(FeatureBoard.TOOL_TYPE, "");
-		uniqueOptions.put(FeatureBoard.PROJECT_NAME, "");
-		uniqueOptions.put(FeatureBoard.PROJECT_ID, "");
-		uniqueOptions.put(FeatureBoard.TEAM_NAME, "");
-		uniqueOptions.put(FeatureBoard.TEAM_ID, "");
+    Map<String, Object> allOptions = new HashMap<>();
+    allOptions.put(FeatureBoard.TOOL_TYPE, "");
+    allOptions.put(FeatureBoard.PROJECT_NAME, "");
+    allOptions.put(FeatureBoard.PROJECT_ID, "");
+    allOptions.put(FeatureBoard.TEAM_NAME, "");
+    allOptions.put(FeatureBoard.TEAM_ID, "");
+    allOptions.put(FeatureBoard.ESTIMATE_METRIC_TYPE, "");
+    allOptions.put(FeatureBoard.SPRINT_TYPE, "");
+    allOptions.put(FeatureBoard.LIST_TYPE, "");
+    allOptions.put(FeatureBoard.SHOW_STATUS, "");
+    protoType.setAllFields(allOptions);
 
-		protoType.setUniqueFields(uniqueOptions);
+    Map<String, Object> uniqueOptions = new HashMap<>();
+    uniqueOptions.put(FeatureBoard.TOOL_TYPE, "");
+    uniqueOptions.put(FeatureBoard.PROJECT_NAME, "");
+    uniqueOptions.put(FeatureBoard.PROJECT_ID, "");
+    uniqueOptions.put(FeatureBoard.TEAM_NAME, "");
+    uniqueOptions.put(FeatureBoard.TEAM_ID, "");
 
-		Map<String, Object> properties = new HashMap<>();
-		properties.put("mode", mode);
-		protoType.setProperties(properties);
+    protoType.setUniqueFields(uniqueOptions);
 
-		return protoType;
-	}
+    Map<String, Object> properties = new HashMap<>();
+    properties.put("mode", mode);
+    protoType.setProperties(properties);
+
+    return protoType;
+  }
 }

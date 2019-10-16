@@ -12,19 +12,19 @@ import java.util.Set;
 
 public interface JiraClient {
 
-	FeatureEpicResult getIssues(Team board, Map<String, String> issueTypeIds);
+  FeatureEpicResult getIssues(Team board, Map<String, String> issueTypeIds);
 
-	FeatureEpicResult getIssues(Scope project, Map<String, String> issueTypeIds);
+  FeatureEpicResult getIssues(Scope project, Map<String, String> issueTypeIds);
 
-	Set<Scope> getProjects();
+  Set<Scope> getProjects();
 
-	List<Team> getBoards();
+  List<Team> getBoards();
 
-	List<Team> getTeams();
+  List<Team> getTeams();
 
-	Epic getEpic(String epicKey, Map<String, Epic> epicMap);
+  Epic getEpic(String epicKey, Map<String, Epic> epicMap);
 
-	List<String> getAllIssueIds(String id, JiraMode mode);
+  List<String> getAllIssueIds(String id, JiraMode mode);
 
-	Map<String, String> getJiraIssueTypeIds();
+  Map<String, String> getJiraIssueTypeIds();
 }

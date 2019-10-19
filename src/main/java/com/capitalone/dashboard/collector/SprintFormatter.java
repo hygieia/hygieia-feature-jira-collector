@@ -1,5 +1,7 @@
 package com.capitalone.dashboard.collector;
 
+import static java.util.stream.Collectors.toMap;
+
 import com.capitalone.dashboard.model.Sprint;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +21,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toMap;
 
 public class SprintFormatter {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultJiraClient.class);
+
     static Sprint parseSprint(JSONArray customArray) {
-        if (CollectionUtils.isEmpty(customArray)) return null;
+        if (CollectionUtils.isEmpty(customArray)) {
+          return null;
+        }
         Pattern pattern = Pattern.compile("\\[(.*?)\\]");
         List<Sprint> sprints = new ArrayList<>();
 
@@ -46,8 +50,12 @@ public class SprintFormatter {
                 sprint.setName(MapUtils.getString(sprintMap, "name", ""));
                 sprint.setRapidViewId(MapUtils.getString(sprintMap, "rapidView", ""));
                 sprint.setStartDateStr(MapUtils.getString(sprintMap, "startDate", ""));
-                if (StringUtils.isEmpty(sprint.getStartDateStr()) || sprint.getStartDateStr().equalsIgnoreCase("<null>")) {
-                    LOGGER.info("ERROR: Sprint start date is bad. Sprint ID=" + sprint.getRapidViewId());
+
+                boolean startDateIsEmpty = StringUtils.isEmpty(sprint.getStartDateStr());
+                boolean startDateIsNullish = sprint.getStartDateStr().equalsIgnoreCase("<null>");
+                if (startDateIsEmpty || startDateIsNullish) {
+                    LOGGER.info("ERROR: Sprint start date is bad. Sprint ID={}",
+                      sprint.getRapidViewId());
                     continue;
                 }
                 sprint.setState(MapUtils.getString(sprintMap, "state", ""));
@@ -56,10 +64,16 @@ public class SprintFormatter {
                 sprints.add(sprint);
             }
         }
-        if (CollectionUtils.isEmpty(sprints)) return null;
+        if (CollectionUtils.isEmpty(sprints)) {
+          return null;
+        }
 
         //Sort by date and take the latest sprint.
-        sprints = sprints.stream().sorted(Comparator.comparing(s -> LocalDateTime.parse(s.getStartDateStr(), DateTimeFormatter.ISO_OFFSET_DATE_TIME))).collect(Collectors.toList());
+        sprints = sprints.stream().sorted(
+          Comparator.comparing(s ->
+            LocalDateTime.parse(s.getStartDateStr(), DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+          )
+        ).collect(Collectors.toList());
 
         return sprints.get(sprints.size() - 1);
     }

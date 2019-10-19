@@ -86,10 +86,16 @@ public class Epic {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Epic)) return false;
-        Epic epic = (Epic) o;
+    public boolean equals(Object other) {
+        if (this == other) {
+          return true;
+        }
+
+        if (!(other instanceof Epic)) {
+          return false;
+        }
+
+        Epic epic = (Epic) other;
         return Objects.equals(id, epic.id);
     }
 

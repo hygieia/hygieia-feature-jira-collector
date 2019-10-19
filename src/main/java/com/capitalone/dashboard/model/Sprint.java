@@ -16,66 +16,66 @@ public class Sprint {
   private String sequence;
 
   public String getId() {
-                            return id;
-                                      }
+    return id;
+  }
 
   public void setId(String id) {
-                                   this.id = id;
-                                                }
+    this.id = id;
+  }
 
   public String getRapidViewId() {
-                                     return rapidViewId;
-                                                        }
+    return rapidViewId;
+  }
 
   public void setRapidViewId(String rapidViewId) {
-                                                     this.rapidViewId = rapidViewId;
-                                                                                    }
+    this.rapidViewId = rapidViewId;
+  }
 
   public String getState() {
-                               return state;
-                                            }
+    return state;
+  }
 
   public void setState(String state) {
-                                         this.state = state;
-                                                            }
+    this.state = state;
+  }
 
   public String getName() {
-                              return name;
-                                          }
+    return name;
+  }
 
   public void setName(String name) {
-                                       this.name = name;
-                                                        }
+    this.name = name;
+  }
 
   public String getStartDateStr() {
-                                      return startDateStr;
-                                                          }
+    return startDateStr;
+  }
 
   public void setStartDateStr(String startDateStr) {
-                                                       this.startDateStr = startDateStr;
-                                                                                        }
+    this.startDateStr = startDateStr;
+  }
 
   public String getEndDateStr() {
-                                    return endDateStr;
-                                                      }
+    return endDateStr;
+  }
 
   public void setEndDateStr(String endDateStr) {
-                                                   this.endDateStr = endDateStr;
-                                                                                }
+    this.endDateStr = endDateStr;
+  }
 
   public String getCompleteDateStr() {
-                                         return completeDateStr;
-                                                                }
+    return completeDateStr;
+  }
 
   public void setCompleteDateStr(String completeDateStr) {
-                                                             this.completeDateStr = completeDateStr;
-                                                                                                    }
+    this.completeDateStr = completeDateStr;
+  }
 
   public String getSequence() {
-                                  return sequence;
-                                                  }
+    return sequence;
+  }
 
   public void setSequence(String sequence) {
-                                               this.sequence = sequence;
+    this.sequence = sequence;
   }
 }

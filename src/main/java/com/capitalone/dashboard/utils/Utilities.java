@@ -3,30 +3,56 @@ package com.capitalone.dashboard.utils;
 import org.json.simple.JSONObject;
 
 public class Utilities {
+   
+    /**
+     * Returns String.valueOf for the value.
+     */
     public static String getString(JSONObject json, String key) {
-        if (json == null) return "";
-        Object o = json.get(key);
-        if (o == null) return "";
-        if (o instanceof Double) {
-            Double d = (Double) o;
-            return String.valueOf(d.intValue());
+        if (json == null) {
+          return "";
         }
-        return String.valueOf(o);
+
+        Object value = json.get(key);
+        if (value == null) {
+          return "";
+        }
+
+        if (value instanceof Double) {
+            Double casted = (Double) value;
+            return String.valueOf(casted.intValue());
+        }
+
+        return String.valueOf(value);
     }
 
+    /**
+     * Converts the value to a long.
+     */
     public static long getLong(JSONObject json, String key) {
-        if (json == null) return 0;
-        Object o = json.get(key);
-        if (o == null) return 0;
-        return (Long) o;
+        if (json == null) {
+          return 0;
+        }
+
+        Object value = json.get(key);
+        if (value == null) {
+          return 0;
+        }
+
+        return (Long) value;
     }
 
-    //This is weird but way faster than Java date time formatter etc.
+    /**
+     * This is weird but way faster than Java date time formatter etc.
+     */
     public static String parseDateWithoutFraction(String date) {
-        if(date == null) return "";
+        if (date == null) {
+          return "";
+        }
+
         if (date.length() < 20) {
             return date;
         }
+
         return date.substring(0, 19);
     }
 }

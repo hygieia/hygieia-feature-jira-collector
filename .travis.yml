@@ -16,7 +16,7 @@ before_script:
 script:
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [[ "$TRAVIS_BRANCH" =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then cp ./src/devops/release.sh . && ./release.sh; fi
   - export TAG=$TRAVIS_BRANCH
-  - export IMAGE_NAME='rvema/jirafeaturecollector'
+  - export IMAGE_NAME='hygieiadoc/jirafeaturecollector'
   - echo $IMAGE_NAME
   - echo $TAG
   - docker build -t $IMAGE_NAME .
@@ -32,8 +32,8 @@ notifications:
     on_start: always
   email:
     recipients:
-      #- tapabrata.pal@capitalone.com
+      - tapabrata.pal@capitalone.com
       - ragha.vema@capitalone.com
-      #- hygieia2@capitalone.com
+      - hygieia2@capitalone.com
     on_success: always
     on_failure: always

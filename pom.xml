@@ -79,7 +79,7 @@
     <site.publish.url>https://github.com/Hygieia/${project.artifactId}</site.publish.url>
     <site.publish.checkout.directory>site-content</site.publish.checkout.directory>
     <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
-    <svnkit.version>1.8.7</svnkit.version>
+    <svnkit.version>1.10.1</svnkit.version>
   </properties>
 
   <issueManagement>
@@ -765,19 +765,19 @@
                 <configuration>
                   <tasks>
                     <exec executable="git">
-                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}" />
+                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="fetch origin gh-pages" />
+                      <arg line="fetch origin gh-pages"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="reset --hard origin/gh-pages" />
+                      <arg line="reset --hard origin/gh-pages"/>
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${site.publish.checkout.directory}" includes="*" />
+                      <dirset dir="${site.publish.checkout.directory}" includes="*"/>
                     </pathconvert>
                   </tasks>
                 </configuration>

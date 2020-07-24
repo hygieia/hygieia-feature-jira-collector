@@ -170,7 +170,7 @@
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.9</version>
+      <version>1.14</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -192,7 +192,7 @@
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.9</version>
+      <version>1.14</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -765,19 +765,19 @@
                 <configuration>
                   <tasks>
                     <exec executable="git">
-                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}" />
+                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="fetch origin gh-pages" />
+                      <arg line="fetch origin gh-pages"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="reset --hard origin/gh-pages" />
+                      <arg line="reset --hard origin/gh-pages"/>
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${site.publish.checkout.directory}" includes="*" />
+                      <dirset dir="${site.publish.checkout.directory}" includes="*"/>
                     </pathconvert>
                   </tasks>
                 </configuration>

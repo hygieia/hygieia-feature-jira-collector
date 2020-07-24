@@ -53,7 +53,7 @@
     <bc.version>3.0.1</bc.version>
     <com.capitalone.dashboard.core.version>3.7.8</com.capitalone.dashboard.core.version>
     <commons.io.version>2.4</commons.io.version>
-    <commons.lang.version>3.8.1</commons.lang.version>
+    <commons.lang.version>3.10</commons.lang.version>
     <coveralls.maven.plugin.version>4.3.0</coveralls.maven.plugin.version>
     <developmentTeam>The Hygieia Team</developmentTeam>
     <jacoco.maven.plugin.version>0.8.3</jacoco.maven.plugin.version>
@@ -765,19 +765,19 @@
                 <configuration>
                   <tasks>
                     <exec executable="git">
-                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}" />
+                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="fetch origin gh-pages" />
+                      <arg line="fetch origin gh-pages"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="reset --hard origin/gh-pages" />
+                      <arg line="reset --hard origin/gh-pages"/>
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${site.publish.checkout.directory}" includes="*" />
+                      <dirset dir="${site.publish.checkout.directory}" includes="*"/>
                     </pathconvert>
                   </tasks>
                 </configuration>

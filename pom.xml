@@ -51,7 +51,7 @@
     <repository.name>hygieia-feature-jira-collector</repository.name>
     <apache.rat.plugin.version>0.13</apache.rat.plugin.version>
     <bc.version>3.0.1</bc.version>
-    <com.capitalone.dashboard.core.version>3.7.8</com.capitalone.dashboard.core.version>
+    <com.capitalone.dashboard.core.version>3.7.24</com.capitalone.dashboard.core.version>
     <commons.io.version>2.4</commons.io.version>
     <commons.lang.version>3.8.1</commons.lang.version>
     <coveralls.maven.plugin.version>4.3.0</coveralls.maven.plugin.version>
@@ -75,6 +75,8 @@
     <maven.scm.publish.plugin.version>3.0.0</maven.scm.publish.plugin.version>
     <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
     <mockito.all.version>1.10.19</mockito.all.version>
+    <mongodb.version>3.6.4</mongodb.version>
+    <mongo>3.6.4</mongo>
     <org.joda.joda-convert.version>1.8.1</org.joda.joda-convert.version>
     <site.publish.url>https://github.com/Hygieia/${project.artifactId}</site.publish.url>
     <site.publish.checkout.directory>site-content</site.publish.checkout.directory>

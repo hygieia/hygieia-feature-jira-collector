@@ -1,6 +1,8 @@
 package com.capitalone.dashboard.collector;
 
 import com.capitalone.dashboard.client.RestClient;
+import com.capitalone.dashboard.client.RestClientSettings;
+import com.capitalone.dashboard.client.RestOperationsSupplier;
 import com.capitalone.dashboard.common.TestUtils;
 import com.capitalone.dashboard.config.FongoConfig;
 import com.capitalone.dashboard.config.TestConfig;
@@ -15,7 +17,6 @@ import com.capitalone.dashboard.repository.FeatureRepository;
 import com.capitalone.dashboard.repository.ScopeRepository;
 import com.capitalone.dashboard.repository.TeamRepository;
 import com.capitalone.dashboard.testutil.GsonUtil;
-import com.capitalone.dashboard.util.Supplier;
 import com.github.fakemongo.junit.FongoRule;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
@@ -70,7 +71,9 @@ public class FeatureCollectorTaskTest {
     @Rule
     public FongoRule fongoRule = new FongoRule();
     @Mock
-    private Supplier<RestOperations> restOperationsSupplier = mock(Supplier.class);
+    private RestClientSettings restClientSettings;
+    @Mock
+    private RestOperationsSupplier restOperationsSupplier;
     @Mock
     private RestOperations rest = mock(RestOperations.class);
     @Autowired
@@ -94,8 +97,8 @@ public class FeatureCollectorTaskTest {
         TestUtils.loadTeams(teamRepository);
         TestUtils.loadScope(projectRepository);
         TestUtils.loadFeature(featureRepository);
-        when(restOperationsSupplier.get()).thenReturn(rest);
-        RestClient restClient = new RestClient(restOperationsSupplier);
+        when(restOperationsSupplier.get(restClientSettings)).thenReturn(rest);
+        RestClient restClient = new RestClient(restOperationsSupplier, restClientSettings);
         defaultJiraClient = new DefaultJiraClient(featureSettings,restClient);
         featureSettings.setJiraBoardAsTeam(true);
         featureSettings.setCollectorItemOnlyUpdate(false);

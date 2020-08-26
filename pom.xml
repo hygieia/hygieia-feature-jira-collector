@@ -45,14 +45,30 @@
   </distributionManagement>
 
   <properties>
+    <!-- Dependencies -->
+    <com.capitalone.dashboard.core.version>3.10.0</com.capitalone.dashboard.core.version>
+    <spring-security.version>4.2.18.RELEASE</spring-security.version>
+    <tomcat.version>8.5.57</tomcat.version>
+    <commons-codec.version>1.14</commons-codec.version>
+    <commons-collections4.version>4.1</commons-collections4.version>
+    <commons-io.version>2.4</commons-io.version>
+    <commons-lang.version>3.10</commons-lang.version>
+    <fongo.version>2.2.0-RC2</fongo.version>
+    <guava.version>29.0-jre</guava.version>
+    <hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
+    <jackson.version>2.10.3</jackson.version>
+    <jasypt.version>1.9</jasypt.version>
+    <logback.version>1.2.3</logback.version>
+    <mongodb.version>3.6.4</mongodb.version>
+    <assertj.version>3.9.0</assertj.version>
+
+    <!-- Plugins -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-    <assertj.version>3.9.0</assertj.version>
     <commons-codec.version>1.14</commons-codec.version>
     <final.name>jira-feature-collector</final.name>
     <repository.name>hygieia-feature-jira-collector</repository.name>
     <apache.rat.plugin.version>0.13</apache.rat.plugin.version>
-    <com.capitalone.dashboard.core.version>3.10.0</com.capitalone.dashboard.core.version>
     <coveralls.maven.plugin.version>4.3.0</coveralls.maven.plugin.version>
     <developmentTeam>The Hygieia Team</developmentTeam>
     <jacoco.maven.plugin.version>0.8.3</jacoco.maven.plugin.version>
@@ -73,7 +89,6 @@
     <maven.project-info.version>3.0.0</maven.project-info.version>
     <maven.scm.publish.plugin.version>3.0.0</maven.scm.publish.plugin.version>
     <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
-    <mongodb.version>3.6.4</mongodb.version>
     <site.publish.url>https://github.com/Hygieia/${project.artifactId}</site.publish.url>
     <site.publish.checkout.directory>site-content</site.publish.checkout.directory>
     <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>

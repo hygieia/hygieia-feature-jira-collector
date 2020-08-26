@@ -2,6 +2,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.capitalone.dashboard</groupId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Jira collector micorservice collects data from Jira</description>
   <packaging>jar</packaging>

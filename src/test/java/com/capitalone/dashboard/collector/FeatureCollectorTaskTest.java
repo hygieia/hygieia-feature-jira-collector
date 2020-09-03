@@ -1,7 +1,6 @@
 package com.capitalone.dashboard.collector;
 
 import com.capitalone.dashboard.client.RestClient;
-import com.capitalone.dashboard.client.RestClientSettings;
 import com.capitalone.dashboard.client.RestOperationsSupplier;
 import com.capitalone.dashboard.common.TestUtils;
 import com.capitalone.dashboard.config.FongoConfig;
@@ -71,8 +70,6 @@ public class FeatureCollectorTaskTest {
     @Rule
     public FongoRule fongoRule = new FongoRule();
     @Mock
-    private RestClientSettings restClientSettings;
-    @Mock
     private RestOperationsSupplier restOperationsSupplier;
     @Mock
     private RestOperations rest = mock(RestOperations.class);
@@ -97,8 +94,8 @@ public class FeatureCollectorTaskTest {
         TestUtils.loadTeams(teamRepository);
         TestUtils.loadScope(projectRepository);
         TestUtils.loadFeature(featureRepository);
-        when(restOperationsSupplier.get(restClientSettings)).thenReturn(rest);
-        RestClient restClient = new RestClient(restOperationsSupplier, restClientSettings);
+        when(restOperationsSupplier.get()).thenReturn(rest);
+        RestClient restClient = new RestClient(restOperationsSupplier);
         defaultJiraClient = new DefaultJiraClient(featureSettings,restClient);
         featureSettings.setJiraBoardAsTeam(true);
         featureSettings.setCollectorItemOnlyUpdate(false);

@@ -167,12 +167,6 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
         }
     }
 
-    @Override
-    public int getCount() {
-        return count.get();
-    }
-
-
     /**
      * Update team information
      *

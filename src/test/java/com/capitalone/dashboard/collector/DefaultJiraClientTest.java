@@ -1,7 +1,6 @@
 package com.capitalone.dashboard.collector;
 
 import com.capitalone.dashboard.client.RestClient;
-import com.capitalone.dashboard.client.RestClientSettings;
 import com.capitalone.dashboard.client.RestOperationsSupplier;
 import com.capitalone.dashboard.config.FongoConfig;
 import com.capitalone.dashboard.config.TestConfig;
@@ -51,8 +50,6 @@ public class DefaultJiraClientTest {
     @Mock
     private DefaultJiraClient defaultJiraClient;
     @Mock
-    private RestClientSettings restClientSettings;
-    @Mock
     private RestOperationsSupplier restOperationsSupplier;
     @Mock
     private RestOperations rest = mock(RestOperations.class);
@@ -61,9 +58,9 @@ public class DefaultJiraClientTest {
 
     @Before
     public void loadStuff() {
-        when(restOperationsSupplier.get(restClientSettings)).thenReturn(rest);
+        when(restOperationsSupplier.get()).thenReturn(rest);
 
-        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier, restClientSettings)
+        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier)
         );
     }
 
@@ -72,7 +69,7 @@ public class DefaultJiraClientTest {
         doReturn(new ResponseEntity<>(getExpectedJSON("response/issuetype.json"), HttpStatus.OK)).when(rest).exchange(contains("rest/api/2/issuetype"), eq(HttpMethod.GET), Matchers.any(HttpEntity.class), eq(String.class));
         Map<String,String> issueTypeIds = defaultJiraClient.getJiraIssueTypeIds();
         featureSettings.setJiraIssueTypeNames(new String[]{"Story"});
-        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier, restClientSettings));
+        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier));
         assertEquals(issueTypeIds.containsKey("Epic"), true);
     }
     @Test
@@ -92,7 +89,7 @@ public class DefaultJiraClientTest {
     public void getProjectsWithAuth() throws IOException{
         doReturn(new ResponseEntity<>(getExpectedJSON("response/projectresponse.json"), HttpStatus.OK)).when(rest).exchange(contains("api/2/project"), eq(HttpMethod.GET), Matchers.any(HttpEntity.class), eq(String.class));
         featureSettings.setJiraCredentials("dXNlcm5hbWU6cGFzc3dvcmQ=");
-        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier, restClientSettings));
+        defaultJiraClient = new DefaultJiraClient(featureSettings,new RestClient(restOperationsSupplier));
         Set<Scope> projects = defaultJiraClient.getProjects();
         assertThat(projects.stream().count()).isEqualTo(2);
     }

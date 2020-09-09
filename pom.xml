@@ -2,17 +2,18 @@
 
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.capitalone.dashboard</groupId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Jira collector micorservice collects data from Jira</description>
   <packaging>jar</packaging>
   <artifactId>jira-feature-collector</artifactId>
   <url>https://github.com/Hygieia/${repository.name}</url>
-  <version>3.1.3-SNAPSHOT</version>
+  <version>3.2.0-SNAPSHOT</version>
 
   <parent>
-    <groupId>com.capitalone.dashboard</groupId>
-    <artifactId>Hygieia</artifactId>
-    <version>3.0.1</version>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.22.RELEASE</version>
   </parent>
 
   <organization>
@@ -44,16 +45,31 @@
   </distributionManagement>
 
   <properties>
+    <!-- Dependencies -->
+    <com.capitalone.dashboard.core.version>3.10.0</com.capitalone.dashboard.core.version>
+    <spring-security.version>4.2.18.RELEASE</spring-security.version>
+    <tomcat.version>8.5.57</tomcat.version>
+    <commons-beanutils.version>1.9.4</commons-beanutils.version>
+    <commons-codec.version>1.14</commons-codec.version>
+    <commons-collections4.version>4.1</commons-collections4.version>
+    <commons-io.version>2.4</commons-io.version>
+    <commons-lang.version>3.10</commons-lang.version>
+    <fongo.version>2.2.0-RC2</fongo.version>
+    <guava.version>29.0-jre</guava.version>
+    <hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
+    <jackson.version>2.10.3</jackson.version>
+    <jasypt.version>1.18</jasypt.version>
+    <logback.version>1.2.3</logback.version>
+    <mongodb.version>3.6.4</mongodb.version>
+    <assertj.version>3.9.0</assertj.version>
+
+    <!-- Plugins -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-    <junit.version>4.11</junit.version>
+    <commons-codec.version>1.14</commons-codec.version>
     <final.name>jira-feature-collector</final.name>
     <repository.name>hygieia-feature-jira-collector</repository.name>
     <apache.rat.plugin.version>0.13</apache.rat.plugin.version>
-    <bc.version>3.0.1</bc.version>
-    <com.capitalone.dashboard.core.version>3.7.24</com.capitalone.dashboard.core.version>
-    <commons.io.version>2.4</commons.io.version>
-    <commons.lang.version>3.10</commons.lang.version>
     <coveralls.maven.plugin.version>4.3.0</coveralls.maven.plugin.version>
     <developmentTeam>The Hygieia Team</developmentTeam>
     <jacoco.maven.plugin.version>0.8.3</jacoco.maven.plugin.version>
@@ -74,14 +90,9 @@
     <maven.project-info.version>3.0.0</maven.project-info.version>
     <maven.scm.publish.plugin.version>3.0.0</maven.scm.publish.plugin.version>
     <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
-    <mockito.all.version>1.10.19</mockito.all.version>
-    <mongodb.version>3.6.4</mongodb.version>
-    <mongo>3.6.4</mongo>
-    <org.joda.joda-convert.version>1.8.1</org.joda.joda-convert.version>
     <site.publish.url>https://github.com/Hygieia/${project.artifactId}</site.publish.url>
     <site.publish.checkout.directory>site-content</site.publish.checkout.directory>
     <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
-    <svnkit.version>1.10.1</svnkit.version>
   </properties>
 
   <issueManagement>
@@ -126,81 +137,12 @@
       <version>${com.capitalone.dashboard.core.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>${commons.io.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${commons.lang.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.joda</groupId>
-      <artifactId>joda-convert</artifactId>
-      <version>${org.joda.joda-convert.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.tmatesoft.svnkit</groupId>
-      <artifactId>svnkit</artifactId>
-      <version>${svnkit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito.all.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
-      <artifactId>json-simple</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.14</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>18.0</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <!-- use 2.6.0 for Java 7 projects -->
-      <version>3.9.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

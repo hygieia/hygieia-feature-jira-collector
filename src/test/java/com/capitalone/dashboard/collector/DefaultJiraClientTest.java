@@ -1,13 +1,13 @@
 package com.capitalone.dashboard.collector;
 
 import com.capitalone.dashboard.client.RestClient;
+import com.capitalone.dashboard.client.RestOperationsSupplier;
 import com.capitalone.dashboard.config.FongoConfig;
 import com.capitalone.dashboard.config.TestConfig;
 import com.capitalone.dashboard.model.FeatureEpicResult;
 import com.capitalone.dashboard.model.JiraMode;
 import com.capitalone.dashboard.model.Scope;
 import com.capitalone.dashboard.model.Team;
-import com.capitalone.dashboard.util.Supplier;
 import com.google.common.io.Resources;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class DefaultJiraClientTest {
     @Mock
     private DefaultJiraClient defaultJiraClient;
     @Mock
-    private Supplier<RestOperations> restOperationsSupplier = mock(Supplier.class);
+    private RestOperationsSupplier restOperationsSupplier;
     @Mock
     private RestOperations rest = mock(RestOperations.class);
     @Autowired

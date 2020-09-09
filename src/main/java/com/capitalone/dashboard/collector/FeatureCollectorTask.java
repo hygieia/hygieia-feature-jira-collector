@@ -1,5 +1,6 @@
 package com.capitalone.dashboard.collector;
 
+import com.capitalone.dashboard.client.RestOperationsSupplier;
 import com.capitalone.dashboard.model.Collector;
 import com.capitalone.dashboard.model.Epic;
 import com.capitalone.dashboard.model.Feature;
@@ -37,6 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -55,6 +57,7 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
     private final FeatureCollectorRepository featureCollectorRepository;
     private final FeatureSettings featureSettings;
     private final JiraClient jiraClient;
+    private AtomicInteger count = new AtomicInteger(0);
 
     /**
      * Default constructor for the collector task. This will construct this
@@ -164,7 +167,6 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
         }
     }
 
-
     /**
      * Update team information
      *
@@ -251,7 +253,7 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
      */
     protected void updateStoryInformation(FeatureCollector collector) {
         long storyDataStart = System.currentTimeMillis();
-        AtomicLong count = new AtomicLong();
+        count.set(0);
         Map<String, String> issueTypesMap = (Map<String, String>)  collector.getProperties().get("issueTypesMap");
         if (Objects.equals(collector.getMode(), JiraMode.Team)) {
             List<Scope> projects = new ArrayList<>(getScopeList(collector.getId()));

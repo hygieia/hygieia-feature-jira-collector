@@ -148,8 +148,23 @@
   </dependencies>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
-    <finalName>${project.artifactId}</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/version.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/version.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <finalName>${artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -165,37 +180,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.github.siom79.japicmp</groupId>
-        <artifactId>japicmp-maven-plugin</artifactId>
-        <version>0.13.1</version>
-        <configuration>
-          <oldVersion>
-            <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${bc.version}</version>
-              <type>jar</type>
-            </dependency>
-          </oldVersion>
-          <newVersion>
-            <file>
-              <path>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</path>
-            </file>
-          </newVersion>
-          <parameter>
-            <onlyModified>true</onlyModified>
-            <breakBuildOnBinaryIncompatibleModifications>${japicmp.breakBuildOnBinaryIncompatibleModifications}</breakBuildOnBinaryIncompatibleModifications>
-            <breakBuildOnSourceIncompatibleModifications>${japicmp.breakBuildOnSourceIncompatibleModifications}</breakBuildOnSourceIncompatibleModifications>
-            <!-- skip japicmp on "mvn site" - use "mvn package site" to include report -->
-            <ignoreMissingNewVersion>true</ignoreMissingNewVersion>
-            <reportOnlyFilename>true</reportOnlyFilename>
-            <skipPomModules>true</skipPomModules>
-            <ignoreMissingClasses>false</ignoreMissingClasses>
-          </parameter>
-          <skip>${japicmp.skip}</skip>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven.checkstyle.plugin.version}</version>
@@ -203,7 +187,7 @@
           <configLocation>src/devops/checkstyle.xml</configLocation>
           <suppressionsLocation>src/devops/checkstyle-suppressions.xml</suppressionsLocation>
           <encoding>UTF-8</encoding>
-          <consoleOutput>true</consoleOutput>
+          <consoleOutput>false</consoleOutput>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
         </configuration>
@@ -223,10 +207,9 @@
         <version>${apache.rat.plugin.version}</version>
         <configuration>
           <excludes>
-            <exclude>**.tests/**</exclude>
-            <exclude>**logs/**</exclude>
-            <exclude>**site-content/**</exclude>
-            <exclude>RELEASE-NOTES.txt</exclude>
+            <exclude>.tests/**</exclude>
+            <exclude>.tests/**</exclude>
+            <exclude>logs/**</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/apache.config.template</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/test.properties.template</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/svnserve.config.template</exclude>
@@ -249,22 +232,6 @@
             <ruleset>src/devops/pmd.xml</ruleset>
           </rulesets>
           <targetJdk>${java.compilation.target}</targetJdk>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <configuration>
-          <skipDockerBuild>false</skipDockerBuild>
-          <imageName>${repository.name}</imageName> <!-- keeping image name in sync with repo name-->
-          <dockerDirectory>${project.basedir}/docker</dockerDirectory>
-          <resources>
-            <resource>
-              <targetPath>/</targetPath>
-              <directory>${project.build.directory}</directory>
-              <include>${project.build.finalName}.jar</include>
-            </resource>
-          </resources>
         </configuration>
       </plugin>
       <plugin>
@@ -370,7 +337,9 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.plugin.version}</version>
         <configuration>
-          <extdirs>src/test</extdirs>
+          <failOnError>false</failOnError>
+          <failOnWarnings>false</failOnWarnings>
+          <excludes>**/*Test*.java</excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -406,30 +375,6 @@
         <groupId>com.github.siom79.japicmp</groupId>
         <artifactId>japicmp-maven-plugin</artifactId>
         <version>0.13.1</version>
-        <configuration>
-          <oldVersion>
-            <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${bc.version}</version>
-              <type>jar</type>
-            </dependency>
-          </oldVersion>
-          <newVersion>
-            <file>
-              <path>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</path>
-            </file>
-          </newVersion>
-          <parameter>
-            <onlyModified>true</onlyModified>
-            <breakBuildOnBinaryIncompatibleModifications>${japicmp.breakBuildOnBinaryIncompatibleModifications}</breakBuildOnBinaryIncompatibleModifications>
-            <breakBuildOnSourceIncompatibleModifications>${japicmp.breakBuildOnSourceIncompatibleModifications}</breakBuildOnSourceIncompatibleModifications>
-            <!-- skip japicmp on "mvn site" - use "mvn package site" to include report -->
-            <skipPomModules>true</skipPomModules>
-            <ignoreMissingNewVersion>true</ignoreMissingNewVersion>
-            <reportOnlyFilename>true</reportOnlyFilename>
-          </parameter>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.rat</groupId>
@@ -437,10 +382,8 @@
         <version>${apache.rat.plugin.version}</version>
         <configuration>
           <excludes>
-            <exclude>**.tests/**</exclude>
-            <exclude>**logs/**</exclude>
-            <exclude>**site-content/**</exclude>
-            <exclude>RELEASE-NOTES.txt</exclude>
+            <exclude>.tests/**</exclude>
+            <exclude>logs/**</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/apache.config.template</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/test.properties.template</exclude>
             <exclude>src/test/resources/org/tmatesoft/svn/test/svnserve.config.template</exclude>
@@ -599,80 +542,6 @@
       </build>
     </profile>
     <profile>
-      <id>test-deploy</id>
-      <properties>
-        <altDeploymentRepository>id::default::file:target/deploy</altDeploymentRepository>
-      </properties>
-    </profile>
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.5.1</version>
-              <configuration>
-                  <source>1.8</source>
-                  <target>1.8</target>
-              </configuration>
-          </plugin>
-          <plugin>
-              <groupId>org.sonatype.plugins</groupId>
-              <artifactId>nexus-staging-maven-plugin</artifactId>
-              <version>1.6.8</version>
-              <extensions>true</extensions>
-              <configuration>
-                  <serverId>ossrh</serverId>
-                  <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                  <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                  <autoDropAfterRelease>true</autoDropAfterRelease>
-                  <stagingProfileId>26a9600c05a6d3</stagingProfileId>
-              </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>create-javadoc-jar</id>
-                <goals>
-                  <goal>javadoc</goal>
-                  <goal>jar</goal>
-                </goals>
-                <phase>package</phase>
-              </execution>
-            </executions>
-            <configuration>
-              <source>${maven.compiler.source}</source>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-test-sources</id>
-                <goals>
-                  <goal>test-jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>test-jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>setup-checkout</id>
       <activation>
         <file>
@@ -694,19 +563,19 @@
                 <configuration>
                   <tasks>
                     <exec executable="git">
-                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}" />
+                      <arg line="clone -b gh-pages --single-branch ${site.publish.url} ${site.publish.checkout.directory}"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="fetch origin gh-pages" />
+                      <arg line="fetch origin gh-pages"/>
                     </exec>
 
                     <exec executable="git" dir="site-content">
-                      <arg line="reset --hard origin/gh-pages" />
+                      <arg line="reset --hard origin/gh-pages"/>
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${site.publish.checkout.directory}" includes="*" />
+                      <dirset dir="${site.publish.checkout.directory}" includes="*"/>
                     </pathconvert>
                   </tasks>
                 </configuration>
@@ -732,6 +601,78 @@
             <configuration>
               <timestampFormat>EpochMillis</timestampFormat>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <configuration>
+              <source>1.8</source>
+              <target>1.8</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <autoDropAfterRelease>true</autoDropAfterRelease>
+              <stagingProfileId>26a9600c05a6d3</stagingProfileId>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.plugin.version}</version>
+            <configuration>
+              <doclint>none</doclint>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>

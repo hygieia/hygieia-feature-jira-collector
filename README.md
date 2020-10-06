@@ -1,58 +1,63 @@
----
-title: JIRA Collector
-tags:
-keywords:
-summary:
-sidebar: hygieia_sidebar
-permalink: jira.html
----
+## Hygieia collector for collecting Features from Jira
+
+[![Build Status](https://travis-ci.com/Hygieia/hygieia-testresults-jiraxray-collector.svg?branch=master)](https://travis-ci.com/Hygieia/hygieia-testresults-jiraxray-collector)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hygieia_hygieia-feature-jira-collector&metric=alert_status)](https://sonarcloud.io/dashboard?id=Hygieia_hygieia-feature-jira-collector)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Hygieia/hygieia-feature-jira-collector.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Hygieia/hygieia-feature-jira-collector/alerts/)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Hygieia/hygieia-feature-jira-collector.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Hygieia/hygieia-feature-jira-collector/context:java)
+[![Maven Central](https://img.shields.io/maven-central/v/com.capitalone.dashboard/jira-feature-collector.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.capitalone.dashboard%22%20AND%20a:%22jira-feature-collector%22)
+[![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Gitter Chat](https://badges.gitter.im/Join%20Chat.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+<br>
+<br>
+
 Configure the JIRA Collector to display and monitor information (related to features/issues) on the Hygieia Dashboard, from JIRA issue boards. This collector retrieves feature content data from the source system APIs and places it in MongoDB for later retrieval and use by the DevOps Dashboard.
 
 Hygieia uses Spring Boot to package the collector as an executable JAR file with dependencies.
 
+# Table of Contents
+* [Setup Instructions](#setup-instructions)
+* [Sample Application Properties File](#sample-application-properties-file)
+* [Troubleshooting](#troubleshooting)
+
 ## Setup Instructions
 
-## Fork and Clone the Collector 
+To configure the Jira Collector, execute the following steps: 
 
-Fork and clone the JIRA Collector from the [GitHub repo](https://github.com/Hygieia/hygieia-feature-jira-collector). 
+*	**Step 1 - Artifact Preparation:**
 
-To configure the JIRA Collector, execute the following steps:
+	Please review the two options in Step 1 to find the best fit for you. 
 
-*   **Step 1: Change Directory**
+	***Option 1 - Download the artifact:***
 
-Change the current working directory to the `hygieia-feature-jira-collector` directory of your Hygieia source code installation.
+	You can download the SNAPSHOTs from the SNAPSHOT directory [here](https://oss.sonatype.org/content/repositories/snapshots/com/capitalone/dashboard/jira-feature-collector/) or from the maven central repository [here](https://search.maven.org/artifact/com.capitalone.dashboard/jira-feature-collector).  
 
-For example, in the Windows command prompt, run the following command:
+	***Option 2 - Build locally:***
 
-```bash
-cd C:\Users\[username]\hygieia-feature-jira-collector
-```
+	To configure the Jira Collector, git clone the [jira collector repo](https://github.com/Hygieia/hygieia-feature-jira-collector).  Then, execute the following steps:
 
-*   **Step 2: Run Maven Build**
+	To package the jira collector source code into an executable JAR file, run the maven build from the `\hygieia-feature-jira-collector` directory of your source code installation:
 
-Run the maven build to package the collector into an executable JAR file:
+	```bash
+	mvn install
+	```
 
-```bash
-mvn install
-```
+	The output file `[collector name].jar` is generated in the `hygieia-feature-jira-collector\target` folder.
 
-The output file `[collector name].jar` is generated in the `hygieia-feature-jira-collector\target` folder.
+	Once you have chosen an option in Step 1, please proceed: 
 
-*   **Step 3: Set Parameters in Application Properties File**
+*	**Step 2: Set Parameters in the Application Properties File**
 
-Set the configurable parameters in the `application.properties` file to connect to the Dashboard MongoDB database instance, including properties required by the JIRA Collector.
+	Set the configurable parameters in the `application.properties` file to connect to the Dashboard MongoDB database instance, including properties required by the Sonar Collector. To configure the parameters, refer to the [application properties](#sample-application-properties-file) section.
 
-To configure parameters for the JIRA Collector, refer to the sample [application.properties](#sample-application-properties-file) file.
+	For more information about the server configuration, see the Spring Boot [documentation](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-application-property-files).
 
-For information about sourcing the application properties file, refer to the [Spring Boot Documentation](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-application-property-files).
+*	**Step 3: Deploy the Executable File**
 
-*   **Step 4: Deploy the Executable File**
+	To run the [collector name].jar file, change directory to 'hygieia-feature-jira-collector\target' and then execute the following command from the command prompt:
 
-To deploy the `[collector name].jar` file, change directory to `hygieia-feature-jira-collector\target`, and then execute the following from the command prompt:
-
-```bash
-java -jar [collector name].jar --spring.config.name=feature --spring.config.location=[path to application.properties file]
-```
+	```bash
+	java -jar [collector name].jar --spring.config.name=feature --spring.config.location=[path to application.properties file]
+	```
 
 ### Sample Application Properties File
 

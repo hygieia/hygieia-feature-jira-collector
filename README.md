@@ -16,7 +16,7 @@ Hygieia uses Spring Boot to package the collector as an executable JAR file with
 
 # Table of Contents
 * [Setup Instructions](#setup-instructions)
-* [Sample Application Properties File](#sample-application-properties-file)
+* [Sample Application Properties](#sample-application-properties)
 * [Troubleshooting](#troubleshooting)
 * [Run collector with Docker](#run-collector-with-docker)
 
@@ -48,7 +48,7 @@ To configure the Jira Collector, execute the following steps:
 
 *	**Step 2: Set Parameters in the Application Properties File**
 
-	Set the configurable parameters in the `application.properties` file to connect to the Dashboard MongoDB database instance, including properties required by the Sonar Collector. To configure the parameters, refer to the [application properties](#sample-application-properties-file) section.
+	Set the configurable parameters in the `application.properties` file to connect to the Dashboard MongoDB database instance, including properties required by the Sonar Collector. To configure the parameters, refer to the [application properties](#sample-application-properties) section.
 
 	For more information about the server configuration, see the Spring Boot [documentation](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-external-config-application-property-files).
 
@@ -60,7 +60,7 @@ To configure the Jira Collector, execute the following steps:
 	java -jar [collector name].jar --spring.config.name=feature --spring.config.location=[path to application.properties file]
 	```
 
-### Sample Application Properties File
+### Sample Application Properties
 
 The sample `application.properties` file (with minimum overrides) lists parameters with sample values to configure the JIRA Collector. Set the parameters based on your environment setup.
 

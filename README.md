@@ -18,6 +18,7 @@ Hygieia uses Spring Boot to package the collector as an executable JAR file with
 * [Setup Instructions](#setup-instructions)
 * [Sample Application Properties File](#sample-application-properties-file)
 * [Troubleshooting](#troubleshooting)
+* [Run collector with Docker](#run-collector-with-docker)
 
 ## Setup Instructions
 
@@ -235,3 +236,21 @@ For a Kanban board, the API pulls all the issues that match the following criter
 - The feature does not have a sprint set
 - The feature has a sprint set without an end date
 - The feature has a sprint set with end date >= EOT (9999-12-31T59:59:59.999999)
+
+## Run collector with Docker
+
+You can install Hygieia by using a docker image from docker hub. This section gives detailed instructions on how to download and run with Docker. 
+
+*	**Step 1: Download**
+
+	Navigate to the docker hub location of your collector [here](https://hub.docker.com/u/hygieiadoc) and download the latest image (most recent version is preferred).  Tags can also be used, if needed.
+
+*	**Step 2: Run with Docker**
+
+	```Docker run -e SKIP_PROPERTIES_BUILDER=true -v properties_location:/hygieia/config image_name```
+	
+	- <code>-e SKIP_PROPERTIES_BUILDER=true</code>  <br />
+	indicates whether you want to supply a properties file for the java application. If false/omitted, the script will build a properties file with default values
+	- <code>-v properties_location:/hygieia/config</code> <br />
+	if you want to use your own properties file that located outside of docker container, supply the path here. 
+		- Example: <code>-v /Home/User/Document/application.properties:/hygieia/config</code>

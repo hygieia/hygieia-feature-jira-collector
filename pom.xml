@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
   <artifactId>jira-feature-collector</artifactId>
   <url>https://github.com/Hygieia/${repository.name}</url>
-  <version>3.2.0-SNAPSHOT</version>
+  <version>3.2.1-SNAPSHOT</version>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -46,7 +46,7 @@
 
   <properties>
     <!-- Dependencies -->
-    <com.capitalone.dashboard.core.version>3.10.0</com.capitalone.dashboard.core.version>
+    <com.capitalone.dashboard.core.version>3.15.26</com.capitalone.dashboard.core.version>
     <spring-security.version>4.2.18.RELEASE</spring-security.version>
     <tomcat.version>8.5.57</tomcat.version>
     <commons-beanutils.version>1.9.4</commons-beanutils.version>

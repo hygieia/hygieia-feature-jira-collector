@@ -362,7 +362,7 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
      /**
      * convert the utc timestamp
      *
-     * @param feature
+     *
      *
      */
     private void utcTimeStamp(String str, Feature feature) {

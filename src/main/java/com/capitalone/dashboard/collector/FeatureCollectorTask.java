@@ -366,7 +366,7 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
      * @param str
      */
     private void utcTimeStamp(String str, Feature feature) {
-		if (str != "" && str != null) {
+if (!"".equals(str) && str != null) {
 			OffsetDateTime odt = OffsetDateTime.parse(str);
 			Instant instant = odt.toInstant();
 			String output = instant.toString();

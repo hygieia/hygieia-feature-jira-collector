@@ -362,17 +362,15 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
      /**
      * convert the utc timestamp
      *
-     *
-     *
      */
     private void utcTimeStamp(String str, Feature feature) {
-if (!"".equals(str) && str != null) {
-			OffsetDateTime odt = OffsetDateTime.parse(str);
-			Instant instant = odt.toInstant();
-			String output = instant.toString();
-			feature.setsSprintEndDate(output);
-		}
+    if (!"".equals(str) && str != null) {
+	OffsetDateTime odt = OffsetDateTime.parse(str);
+	Instant instant = odt.toInstant();
+	String output = instant.toString();
+	feature.setsSprintEndDate(output);
 	}
+    }
 
     /**
      * Update all features with the latest Epic Information, if any.

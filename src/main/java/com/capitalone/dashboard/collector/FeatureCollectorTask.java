@@ -28,6 +28,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.OffsetDateTime;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -348,6 +349,7 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
 
     private void saveFeatures(List<Feature> features, FeatureCollector collector) {
         features.forEach(f -> {
+            utcTimeStamp(f.getsSprintEndDate(), f);
             f.setCollectorId(collector.getId());
             Feature existing = featureRepository.findByCollectorIdAndSIdAndSTeamID(collector.getId(), f.getsId(), f.getsTeamID());
             if (existing != null) {
@@ -357,6 +359,20 @@ public class FeatureCollectorTask extends CollectorTask<FeatureCollector> {
         });
     }
 
+     /**
+     * convert the utc timestamp
+     *
+     * @param features
+     * @param str
+     */
+    private void utcTimeStamp(String str, Feature feature) {
+		if (str != "" && str != null) {
+			OffsetDateTime odt = OffsetDateTime.parse(str);
+			Instant instant = odt.toInstant();
+			String output = instant.toString();
+			feature.setsSprintEndDate(output);
+		}
+	}
 
     /**
      * Update all features with the latest Epic Information, if any.
